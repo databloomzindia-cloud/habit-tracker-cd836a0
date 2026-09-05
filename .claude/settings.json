@@ -1,0 +1,95 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BRIDGE_URL=http://127.0.0.1:54406 TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/guard_bash.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PROJECT_ROOT=/Users/amirtha/Repositories/Orchestrator_Repos/cd836a0fffbb TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/guard_path.py"
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ALLOWED_DOMAINS= TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/guard_network.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BRIDGE_URL=http://127.0.0.1:54406 TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/guard_deploy_agent.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BRIDGE_URL=http://127.0.0.1:54406 TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/telemetry.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BRIDGE_URL=http://127.0.0.1:54406 CURRENT_PHASE=received TASK_ID=cd836a0fffbb SESSION_ID= USER_ID=69ee71ce05b14bab704187c4 python3 /Users/amirtha/Repositories/wt-integration-0905/orchestrator/hooks/stop_handler.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "/opt/devops_plugin": true,
+    "/opt/ui-ux-pro-max-skill": true,
+    "/opt/superpowers": true
+  },
+  "mcpServers": {
+    "code-review-graph": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@code-review-graph/mcp-server",
+        "--workspace",
+        "/Users/amirtha/Repositories/Orchestrator_Repos/cd836a0fffbb"
+      ]
+    },
+    "semble": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@semble/mcp-memory",
+        "--namespace",
+        "69ee71ce05b14bab704187c4"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
+    }
+  }
+}
